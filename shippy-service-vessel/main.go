@@ -10,12 +10,19 @@ import (
 	"github.com/micro/go-micro/v2"
 )
 
+const (
+	defaultHost = "mongodb://127.0.0.1:27017"
+)
+
 func main() {
 
 	service := micro.NewService(micro.Name("shippy.service.vessel"))
 	service.Init()
 
 	uri := os.Getenv("DB_HOST")
+	if uri == "" {
+		uri = defaultHost
+	}
 
 	client, err := CreateClient(context.Background(), uri, 0)
 	if err != nil {
@@ -27,6 +34,8 @@ func main() {
 	repository := &MongoRepository{vesselCollection}
 
 	h := &handler{repository}
+
+	log.Println("successfully connected to mongodb")
 
 	// Register our implementation with
 	if err := pb.RegisterVesselServiceHandler(service.Server(), h); err != nil {
