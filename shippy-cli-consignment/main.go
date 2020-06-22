@@ -26,6 +26,7 @@ func parseFile(file string) (*pb.Consignment, error) {
 }
 
 func main() {
+
 	// Set up a connection to the server.
 	service := micro.NewService(micro.Name("shippy.cli.consignment"))
 	service.Init()
