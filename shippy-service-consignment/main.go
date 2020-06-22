@@ -33,7 +33,7 @@ func main() {
 
 	consignmentCollection := client.Database("shippy").Collection("vessels")
 	repository := &MongoRepository{consignmentCollection}
-	vesselClient := vesselProto.NewVesselService("shippy.service.client", service.Client())
+	vesselClient := vesselProto.NewVesselService("shippy.service.vessel", service.Client())
 
 	h := &handler{repository, vesselClient}
 
@@ -43,14 +43,6 @@ func main() {
 	if err := pb.RegisterShippingServiceHandler(service.Server(), h); err != nil {
 		log.Panic(err)
 	}
-
-	// vesselResponse, err := vesselClient.Create(context.Context(), &vesselProto.Vessel{
-	// 	MaxWeight: 500000,
-	// 	Capacity:  500,
-	// })
-	// if vesselResponse == nil {
-	// 	log.Panic("error fetching vessel, returned nil")
-	// }
 
 	if err := service.Run(); err != nil {
 		log.Panic(err)

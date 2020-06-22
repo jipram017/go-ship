@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
 	vesselProto "github.com/jipram017/go-ship/shippy-service-vessel/proto/vessel"
@@ -21,10 +22,13 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amount of containers as the capacity value
+	log.Println(req)
 	vesselResponse, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
 		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),
 	})
+
+	log.Println(vesselResponse)
 	if vesselResponse == nil {
 		return errors.New("error fetching vessel, returned nil")
 	}

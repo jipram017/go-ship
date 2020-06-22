@@ -509,6 +509,8 @@ github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJS
 github.com/jipram017/go-ship v0.0.0-20200621065520-d9cb57377789 h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200621065520-d9cb57377789 h1:agU+QZ8rH6I7yaocTS/qhw6g5iwTJZU1GCoIrKv8RmU=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200621065520-d9cb57377789/go.mod h1:PRcVv32jFjlIkH4YB5RTpho8g22pRQ+tKQiYptdnAWE=
+github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200622084449-3274ffb5db6b h1:XRxhAckFgcY50NOkZDxrRuyF5sK/NWxYxarhbMc+pFA=
+github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200622084449-3274ffb5db6b/go.mod h1:dMV6JiSjPTHRAYAFe31Y1j+lDR+626XHYwTlp7iT9tA=
 github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
