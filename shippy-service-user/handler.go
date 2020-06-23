@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"errors"
+
+	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type authable interface {
