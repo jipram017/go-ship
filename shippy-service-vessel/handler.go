@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-vessel/proto/vessel"
 )
@@ -14,10 +15,13 @@ type handler struct {
 // FindAvailable vessels
 func (s *handler) FindAvailable(ctx context.Context, req *pb.Specification, res *pb.Response) error {
 	// Find the next available vessel
+	log.Println(req)
 	vessel, err := s.repository.FindAvailable(ctx, MarshalSpecification(req))
 	if err != nil {
 		return err
 	}
+
+	log.Println(vessel)
 
 	// Set the vessel as part of the response message type
 	res.Vessel = UnmarshalVessel(vessel)

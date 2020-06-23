@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-vessel/proto/vessel"
 	"go.mongodb.org/mongo-driver/bson"
@@ -74,10 +75,13 @@ type Vessel struct {
 func (repository *MongoRepository) FindAvailable(ctx context.Context, spec *Specification) (*Vessel, error) {
 	filter := bson.M{"Capacity": bson.M{"$lte": spec.Capacity}, "MaxWeight": bson.M{"$lte": spec.MaxWeight}}
 	vessel := &Vessel{}
+	log.Println(spec)
+
 	if err := repository.collection.FindOne(ctx, filter).Decode(vessel); err != nil {
 		return nil, err
 	}
 
+	log.Println(vessel)
 	return vessel, nil
 }
 
