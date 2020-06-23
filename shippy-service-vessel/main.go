@@ -31,6 +31,7 @@ func main() {
 	defer client.Disconnect(context.Background())
 
 	vesselCollection := client.Database("shippy").Collection("vessels")
+
 	repository := &MongoRepository{vesselCollection}
 
 	h := &handler{repository}

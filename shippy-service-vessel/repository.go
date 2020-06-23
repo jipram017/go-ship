@@ -73,15 +73,25 @@ type Vessel struct {
 // if capacity and max weight are below a vessels capacity and max weight,
 // then return that vessel.
 func (repository *MongoRepository) FindAvailable(ctx context.Context, spec *Specification) (*Vessel, error) {
-	filter := bson.M{"Capacity": bson.M{"$lte": spec.Capacity}, "MaxWeight": bson.M{"$lte": spec.MaxWeight}}
+	filter := bson.M{"Capacity": bson.M{"$gte": spec.Capacity}, "MaxWeight": bson.M{"$gte": spec.MaxWeight}}
+
+	// filter := bson.D{{
+	// 	"capacity",
+	// 	bson.D{{
+	// 		"$lte",
+	// 		spec.Capacity,
+	// 	}, {
+	// 		"$lte",
+	// 		spec.MaxWeight,
+	// 	}},
+	// }}
 	vessel := &Vessel{}
-	log.Println(spec)
 
 	if err := repository.collection.FindOne(ctx, filter).Decode(vessel); err != nil {
+		log.Println(vessel)
 		return nil, err
 	}
 
-	log.Println(vessel)
 	return vessel, nil
 }
 
