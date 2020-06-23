@@ -4,6 +4,7 @@ import (
 	"context"
 
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -95,7 +96,11 @@ type repository interface {
 
 // GetAll -
 func (repository *MongoRepository) GetAll(ctx context.Context) ([]*Consignment, error) {
-	cur, err := repository.collection.Find(ctx, nil, nil)
+	cur, err := repository.collection.Find(ctx, bson.D{{}}, nil)
+	if err != nil {
+		return nil, err
+	}
+
 	var consignments []*Consignment
 	for cur.Next(ctx) {
 		var consignment *Consignment
@@ -103,6 +108,7 @@ func (repository *MongoRepository) GetAll(ctx context.Context) ([]*Consignment, 
 			return nil, err
 		}
 		consignments = append(consignments, consignment)
+
 	}
 	return consignments, err
 }
