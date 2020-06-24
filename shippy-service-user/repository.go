@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
+
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 	"github.com/jmoiron/sqlx"
 	uuid "github.com/satori/go.uuid"
 )
-
 
 type User struct {
 	ID       string `sql:"id"`
@@ -27,7 +27,7 @@ type PostgresRepository struct {
 	db *sqlx.DB
 }
 
-type NewPostgresRepository(db *sqlx.DB) *PostgresRepository {
+func NewPostgresRepository(db *sqlx.DB) *PostgresRepository {
 	return &PostgresRepository{db}
 }
 
@@ -41,10 +41,10 @@ func MarshalUserCollection(users []*pb.User) []*User {
 
 func MarshalUser(user *pb.User) *User {
 	return &User{
-		ID: user.Id,
-		Name: user.Name,
-		Company: user.Company,
-		Email: user.Email,
+		ID:       user.Id,
+		Name:     user.Name,
+		Company:  user.Company,
+		Email:    user.Email,
 		Password: user.Password,
 	}
 }
@@ -58,16 +58,16 @@ func UnmarshalUserCollection(users []*User) []*pb.User {
 }
 
 func UnmarshalUser(user *User) *pb.User {
-	return &pb.User {
-		Id: user.ID,
-		Name: user.name,
-		Email: user.Email,
-		Company: user.Company,
+	return &pb.User{
+		Id:       user.ID,
+		Name:     user.Name,
+		Email:    user.Email,
+		Company:  user.Company,
 		Password: user.Password,
 	}
 }
 
-func (r *PostgresRepository) Get(ctx context.Context, id string) (*User, error){
+func (r *PostgresRepository) Get(ctx context.Context, id string) (*User, error) {
 	var user *User
 	if err := r.db.GetContext(ctx, &user, "select * from users where id = $1", id); err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func (r *PostgresRepository) Get(ctx context.Context, id string) (*User, error){
 	return user, nil
 }
 
-func (r *PostgresRepository) GetAll(ctx context.Context) ([]*User, error){
+func (r *PostgresRepository) GetAll(ctx context.Context) ([]*User, error) {
 	users := make([]*User, 0)
 	if err := r.db.GetContext(ctx, users, "select * from users"); err != nil {
 		return users, err
@@ -90,7 +90,7 @@ func (r *PostgresRepository) Create(ctx context.Context, user *User) error {
 	return err
 }
 
-func (r *PostgresRepository) GetByEmail(ctx context.Context, email string) (*User, error){
+func (r *PostgresRepository) GetByEmail(ctx context.Context, email string) (*User, error) {
 	query := "select * from users where email = $1"
 	var user *User
 	if err := r.db.GetContext(ctx, &user, query, email); err != nil {

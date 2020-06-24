@@ -18,7 +18,7 @@ type handler struct {
 	tokenService authable
 }
 
-func (s *handler) Get(ctx context.Context, req *pb.Request, res *pb.Response) error {
+func (s *handler) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
 	result, err := s.repository.Get(ctx, req.Id)
 	if err != nil {
 		return err
@@ -29,7 +29,7 @@ func (s *handler) Get(ctx context.Context, req *pb.Request, res *pb.Response) er
 	return nil
 }
 
-func (s *handler) GetAll(ctx context.Context, req *pb.Request, res *pb.Response) error {
+func (s *handler) GetAll(ctx context.Context, req *pb.User, res *pb.Response) error {
 	results, err := s.repository.GetAll(ctx)
 	if err != nil {
 		return err
@@ -59,7 +59,7 @@ func (s *handler) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	return nil
 }
 
-func (s *handler) Create(ctx context.Context, req *pb.Request, res *pb.Response) error {
+func (s *handler) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
