@@ -17,7 +17,13 @@ const (
 
 func main() {
 
-	service := micro.NewService(micro.Name("shippy.service.consignment"))
+	service := micro.NewService(
+		micro.Name("shippy.service.consignment"),
+		micro.Version("latest"),
+		micro.WrapHandler(AuthWrapper),
+	)
+
+	// Initialize service
 	service.Init()
 
 	uri := os.Getenv("DB_HOST")
@@ -48,3 +54,10 @@ func main() {
 		log.Panic(err)
 	}
 }
+
+// AuthWrapper is a high-order function which takes a HandlerFunc
+// and returns a function, which takes a context, request and response interface.
+// The token is extracted from the context set in our consignment-cli, that
+// token is then sent over to the user service to be validated.
+// If valid, the call is passed along to the handler. If not,
+// an error is returned.
