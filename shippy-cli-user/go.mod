@@ -1,5 +1,7 @@
 module github.com/jipram017/go-ship/shippy-cli-user
 
+replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
+
 go 1.13
 
 require (
@@ -11,8 +13,8 @@ require (
 	github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200623190215-185fca545e38
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/lucas-clemente/quic-go v0.17.1 // indirect
-	github.com/micro/go-micro v1.18.0
-	github.com/micro/go-micro/v2 v2.9.0 // indirect
+	github.com/micro/go-micro v1.18.0 // indirect
+	github.com/micro/go-micro/v2 v2.9.0
 	github.com/miekg/dns v1.1.29 // indirect
 	github.com/nats-io/jwt v1.0.1 // indirect
 	github.com/nats-io/nats.go v1.10.0 // indirect

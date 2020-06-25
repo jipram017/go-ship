@@ -2,51 +2,61 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
+	"os"
 
-	proto "github.com/jipram017/go-ship/shippy-service-user/proto/user"
-
-	"github.com/micro/go-micro"
-	"github.com/micro/go-micro/config/source/cli"
+	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
+	"github.com/micro/go-micro/v2"
 )
 
-func createUser(ctx context.Context, service micro.Service, user *proto.User) error {
-	client := proto.NewUserService("shippy.service.user", service.Client())
-	rsp, err := client.Create(ctx, user)
+func main() {
+	srv := micro.NewService(
+		micro.Name("shippy.service.cli"),
+		micro.Version("latest"),
+	)
+
+	// Init will parse the command line flags.
+	srv.Init()
+
+	client := pb.NewUserService("shippy.service.user", srv.Client())
+	//name := "Aji Pramono"
+	email := "jipram017@gmail.com"
+	password := "tohoku2013"
+	//company := "NIAGA"
+
+	// r, err := client.Create(context.TODO(), &pb.User{
+	// 	Name:     name,
+	// 	Email:    email,
+	// 	Password: password,
+	// 	Company:  company,
+	// })
+
+	// if err != nil {
+	// 	log.Fatalf("Could not create: %v", err)
+	// }
+
+	// log.Printf("Created: %s", r.User.Id)
+
+	getAll, err := client.GetAll(context.Background(), &pb.Request{})
 	if err != nil {
-		return err
+		log.Fatalf("Could not list users: %v", err)
 	}
 
-	// Print the user
-	fmt.Println("Response:", rsp.User)
-	return nil
-}
+	for _, v := range getAll.Users {
+		log.Println(v)
+	}
 
-func main() {
-	// create and initialise a new service
-	service := micro.NewService()
-	service.Init(
-		micro.Action(func(c *cli.Context) error {
-			name := c.String("name")
-			email := c.String("email")
-			company := c.String("company")
-			password := c.String("password")
+	authResponse, err := client.Auth(context.TODO(), &pb.User{
+		Email:    email,
+		Password: password,
+	})
 
-			ctx := context.Background()
-			user := &proto.User{
-				Name:     name,
-				Email:    email,
-				Company:  company,
-				Password: password,
-			}
+	if err != nil {
+		log.Fatalf("Could not authenticate user: %s error: %v\n", email, err)
+	}
 
-			if err := createUser(ctx, service, user); err != nil {
-				log.Println("error creating user: ", err.Error())
-				return err
-			}
+	log.Printf("Your access token is: %s \n", authResponse.Token)
 
-			return nil
-		}),
-	)
+	// let's just exit because
+	os.Exit(0)
 }
