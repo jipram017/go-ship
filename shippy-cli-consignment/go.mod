@@ -9,7 +9,7 @@ require (
 	github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200623022139-0a64d6c3aaf2
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/lucas-clemente/quic-go v0.17.1 // indirect
-	github.com/micro/go-micro v1.18.0 // indirect
+	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-micro/v2 v2.9.0
 	github.com/micro/micro/v2 v2.9.2-0.20200616161454-f4e48d129ae0 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect

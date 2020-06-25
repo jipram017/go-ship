@@ -3,10 +3,8 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"io/ioutil"
 	"log"
-	"os"
 
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
 	"github.com/micro/go-micro/metadata"
@@ -15,6 +13,7 @@ import (
 
 const (
 	defaultFilename = "consignment.json"
+	defaultToken    = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImVtYWlsIjoiamlwcmFtMDE3QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoidG9ob2t1MjAxMyJ9LCJleHAiOjE1MDAwLCJpc3MiOiJzaGlwcHkuc2VydmljZS51c2VyIn0.uINU2NZ_BBlPJeY0ExMvXgrOpbHtuJ3ubNJ3vIi"
 )
 
 func parseFile(file string) (*pb.Consignment, error) {
@@ -37,15 +36,14 @@ func main() {
 
 	// Contact the server and print out its response.
 	file := defaultFilename
-	var token string
-	log.Println(os.Args)
+	token := defaultToken
 
-	if len(os.Args) < 3 {
-		log.Fatal(errors.New("Not enough arguments, expecing file and token."))
-	}
+	// if len(os.Args) < 3 {
+	// 	log.Fatal(errors.New("Not enough arguments, expecing file and token."))
+	// }
 
-	file = os.Args[1]
-	token = os.Args[2]
+	// file = os.Args[1]
+	// token = os.Args[2]
 
 	consignment, err := parseFile(file)
 	if err != nil {
@@ -55,7 +53,9 @@ func main() {
 	// Create a new context which contains our given token.
 	// This same context will be passed into both the calls we make
 	// to our consignment-service.
-	ctx := metadata.NewContext(context.Background(), map[string]string{"token": token})
+	ctx := metadata.NewContext(context.Background(), map[string]string{
+		"token": token,
+	})
 
 	r, err := client.CreateConsignment(ctx, consignment)
 	if err != nil {
