@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
 	vesselProto "github.com/jipram017/go-ship/shippy-service-vessel/proto/vessel"
@@ -21,6 +22,7 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amount of containers as the capacity value
 
+	log.Println("masuk5")
 	vesselResponse, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
 		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),
@@ -31,6 +33,7 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	}
 
 	if err != nil {
+		log.Println("masuk2")
 		return err
 	}
 
@@ -40,6 +43,7 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 
 	// Save our consignment
 	if err = s.repository.Create(ctx, MarshalConsignment(req)); err != nil {
+		log.Println("masuk1")
 		return err
 	}
 

@@ -40,7 +40,7 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		log.Println("Authenticating with token: ", token)
 
 		// Auth here
-		authClient := userService.NewUserService("shippy.service.user", client.DefaultClient)
+		authClient := userService.NewUserService("go.micro.srv.user", client.DefaultClient)
 		_, err := authClient.ValidateToken(context.Background(), &userService.Token{
 			Token: token,
 		})
@@ -55,11 +55,12 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 func main() {
 
 	service := micro.NewService(
-		micro.WrapHandler(AuthWrapper),
 		micro.Name("go.micro.srv.consignment"),
 		micro.Version("latest"),
+		micro.WrapHandler(AuthWrapper),
 	)
 
+	log.Println("masuk6")
 	// Initialize service
 	service.Init()
 
@@ -74,18 +75,22 @@ func main() {
 	}
 	defer client.Disconnect(context.Background())
 
+	log.Println("masuk7")
 	consignmentCollection := client.Database("shippy").Collection("consignments")
 	repository := &MongoRepository{consignmentCollection}
 	vesselClient := vesselProto.NewVesselService("go.micro.srv.vessel", service.Client())
+	log.Println("masuk8")
 
 	h := &handler{repository, vesselClient}
 
 	// Register our implementation with
 	if err := pb.RegisterShippingServiceHandler(service.Server(), h); err != nil {
+		log.Println("masuk9")
 		log.Panic(err)
 	}
 
 	if err := service.Run(); err != nil {
+		log.Println("masuk10")
 		log.Panic(err)
 	}
 }

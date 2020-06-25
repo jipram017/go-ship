@@ -520,6 +520,8 @@ github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625172953-1966b230d
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625172953-1966b230d1b3/go.mod h1:3jiMWaGQuGU42heUHfoLbVdbNK7q9Mu7Yy5h9zu93g0=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625175316-cac44439e8b3 h1:Fz1opQ9bMzyvBoVxML3JUhBhMqF2YnlzbgzyYoxRUyY=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625175316-cac44439e8b3/go.mod h1:3jiMWaGQuGU42heUHfoLbVdbNK7q9Mu7Yy5h9zu93g0=
+github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625183214-ee0485bcb348 h1:0JQv6a08V6d/B3fwbjIZD8C8PWmxbpDq2+eJ6PE4wXE=
+github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625183214-ee0485bcb348/go.mod h1:fII6CSCGSUIkCJusj5KnQj/Selwvq36cAKtfoYCQWfI=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200621065520-d9cb57377789 h1:agU+QZ8rH6I7yaocTS/qhw6g5iwTJZU1GCoIrKv8RmU=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200621065520-d9cb57377789/go.mod h1:PRcVv32jFjlIkH4YB5RTpho8g22pRQ+tKQiYptdnAWE=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200622084449-3274ffb5db6b h1:XRxhAckFgcY50NOkZDxrRuyF5sK/NWxYxarhbMc+pFA=
@@ -532,6 +534,8 @@ github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625172953-1966b23
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625172953-1966b230d1b3/go.mod h1:7mxsYpWQey9+p/4GDcxZ0QFs4Qfr018xryLdmwGQs68=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625175316-cac44439e8b3 h1:sUzio7kQngNKu+wMvaLDiAOyFpjZIteVjmzLmTF1jKY=
 github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625175316-cac44439e8b3/go.mod h1:7mxsYpWQey9+p/4GDcxZ0QFs4Qfr018xryLdmwGQs68=
+github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625181915-954b432d8aef h1:BTbgSNULOgbBiH7HZsrf5ZCVDV8fYOf8pn/zrkrJrLo=
+github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625181915-954b432d8aef/go.mod h1:7mxsYpWQey9+p/4GDcxZ0QFs4Qfr018xryLdmwGQs68=
 github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/jmoiron/sqlx v1.2.0/go.mod h1:1FEQNm3xlJgrMD+FBdI9+xvCksHtbpVBBw5dYhBSsks=
@@ -591,6 +595,7 @@ github.com/leodido/go-urn v1.2.0/go.mod h1:+8+nEpDfqqsY+g338gtMEUOtuK+4dEMhiQEgx
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.3.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
+github.com/lib/pq v1.7.0/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 github.com/linode/linodego v0.10.0/go.mod h1:cziNP7pbvE3mXIPneHj0oRY8L1WtGEIKlZ8LANE4eXA=
 github.com/liquidweb/liquidweb-go v1.6.0/go.mod h1:UDcVnAMDkZxpw4Y7NOHkqoeiGacVLEIG/i5J9cyixzQ=
 github.com/lucas-clemente/quic-go v0.12.1/go.mod h1:UXJJPE4RfFef/xPO5wQm0tITK8gNfqwTxjbE7s3Vb8s=
@@ -1217,6 +1222,7 @@ golang.org/x/tools v0.0.0-20191216173652-a0e659d51361/go.mod h1:TB2adYChydJhpapK
 golang.org/x/tools v0.0.0-20200130002326-2f3ba24bd6e7/go.mod h1:TB2adYChydJhpapKDTa4BR/hXlZSLoq2Wpct/0txZ28=
 golang.org/x/tools v0.0.0-20200619210111-0f592d2728bb h1:/7SQoPdMxZ0c/Zu9tBJgMbRE/BmK6i9QXflNJXKAmw0=
 golang.org/x/tools v0.0.0-20200619210111-0f592d2728bb/go.mod h1:EkVYQZoAsY45+roYkvgYkIh4xh/qjgUK9TdY2XT94GE=
+golang.org/x/tools v0.0.0-20200625163451-727c06e3f111/go.mod h1:EkVYQZoAsY45+roYkvgYkIh4xh/qjgUK9TdY2XT94GE=
 golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 h1:E7g+9GITq07hpfrRu66IVDexMakfv52eLZ2CXBWiKr4=
