@@ -29,7 +29,7 @@ func (s *handler) Get(ctx context.Context, req *pb.User, res *pb.Response) error
 	return nil
 }
 
-func (s *handler) GetAll(ctx context.Context, req *pb.User, res *pb.Response) error {
+func (s *handler) GetAll(ctx context.Context, req *pb.Request, res *pb.Response) error {
 	results, err := s.repository.GetAll(ctx)
 	if err != nil {
 		return err

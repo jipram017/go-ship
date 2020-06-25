@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -76,10 +78,24 @@ func (r *PostgresRepository) Get(ctx context.Context, id string) (*User, error) 
 }
 
 func (r *PostgresRepository) GetAll(ctx context.Context) ([]*User, error) {
+	// users := []*User{}
+	// if err := r.db.GetContext(ctx, users, "select * from users"); err != nil {
+	// 	return users, err
+	// }
+
 	users := make([]*User, 0)
-	if err := r.db.GetContext(ctx, users, "select * from users"); err != nil {
-		return users, err
+	rowsx, err := r.db.QueryxContext(ctx, "select * from users")
+	if err != nil {
+		log.Fatal(err)
 	}
+	for rowsx.Next() {
+		user := &User{}
+		if err := rowsx.StructScan(user); err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+	rowsx.Close()
 	return users, nil
 }
 
@@ -92,9 +108,9 @@ func (r *PostgresRepository) Create(ctx context.Context, user *User) error {
 
 func (r *PostgresRepository) GetByEmail(ctx context.Context, email string) (*User, error) {
 	query := "select * from users where email = $1"
-	var user *User
+	user := User{}
 	if err := r.db.GetContext(ctx, &user, query, email); err != nil {
 		return nil, err
 	}
-	return user, nil
+	return &user, nil
 }
