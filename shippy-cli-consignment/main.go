@@ -1,14 +1,16 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 
+	"golang.org/x/net/context"
+
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
+
 	"github.com/micro/go-micro/metadata"
-	"github.com/micro/go-micro/v2"
+	microclient "github.com/micro/go-micro/v2/client"
 )
 
 const (
@@ -27,16 +29,18 @@ func parseFile(file string) (*pb.Consignment, error) {
 }
 
 func main() {
-
-	// Set up a connection to the server.
-	service := micro.NewService(micro.Name("shippy.cli.consignment"))
-	service.Init()
-
-	client := pb.NewShippingService("shippy.service.consignment", service.Client())
-
 	// Contact the server and print out its response.
 	file := defaultFilename
 	token := defaultToken
+
+	// Create a new context which contains our given token.
+	// This same context will be passed into both the calls we make
+	// to our consignment-service.
+	ctx := metadata.NewContext(context.Background(), map[string]string{
+		"token": token,
+	})
+
+	client := pb.NewShippingService("go.micro.srv.consignment", microclient.DefaultClient)
 
 	// if len(os.Args) < 3 {
 	// 	log.Fatal(errors.New("Not enough arguments, expecing file and token."))
@@ -49,13 +53,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not parse error: %v", err)
 	}
-
-	// Create a new context which contains our given token.
-	// This same context will be passed into both the calls we make
-	// to our consignment-service.
-	ctx := metadata.NewContext(context.Background(), map[string]string{
-		"token": token,
-	})
 
 	r, err := client.CreateConsignment(ctx, consignment)
 	if err != nil {
