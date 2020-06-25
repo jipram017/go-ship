@@ -32,8 +32,11 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, resp interface{}) error {
 		meta, ok := metadata.FromContext(ctx)
 		if !ok {
+			log.Println(ok)
 			return errors.New("no auth meta-data found in request")
 		}
+
+		log.Println(meta)
 
 		// Note this is now uppercase (not entirely sure why this is...)
 		token := meta["Token"]
@@ -55,11 +58,10 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 func main() {
 
 	service := micro.NewService(
+		micro.WrapHandler(AuthWrapper),
 		micro.Name("shippy.service.consignment"),
 		micro.Version("latest"),
 	)
-
-	micro.WrapHandler(AuthWrapper)
 
 	// Initialize service
 	service.Init()
