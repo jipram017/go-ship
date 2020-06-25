@@ -16,7 +16,7 @@ const (
 
 func main() {
 
-	service := micro.NewService(micro.Name("shippy.service.vessel"))
+	service := micro.NewService(micro.Name("go.micro.srv.vessel"))
 	service.Init()
 
 	uri := os.Getenv("DB_HOST")
@@ -35,8 +35,6 @@ func main() {
 	repository := &MongoRepository{vesselCollection}
 
 	h := &handler{repository}
-
-	log.Println("successfully connected to mongodb")
 
 	// Register our implementation with
 	if err := pb.RegisterVesselServiceHandler(service.Server(), h); err != nil {

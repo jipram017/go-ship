@@ -75,16 +75,6 @@ type Vessel struct {
 func (repository *MongoRepository) FindAvailable(ctx context.Context, spec *Specification) (*Vessel, error) {
 	filter := bson.M{"Capacity": bson.M{"$gte": spec.Capacity}, "MaxWeight": bson.M{"$gte": spec.MaxWeight}}
 
-	// filter := bson.D{{
-	// 	"capacity",
-	// 	bson.D{{
-	// 		"$lte",
-	// 		spec.Capacity,
-	// 	}, {
-	// 		"$lte",
-	// 		spec.MaxWeight,
-	// 	}},
-	// }}
 	vessel := &Vessel{}
 
 	if err := repository.collection.FindOne(ctx, filter).Decode(vessel); err != nil {
