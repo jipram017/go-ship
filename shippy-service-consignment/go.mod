@@ -7,8 +7,8 @@ go 1.13
 require (
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/golang/protobuf v1.4.2
-	github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625112927-0bfb46d55245
-	github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625112927-0bfb46d55245
+	github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625175316-cac44439e8b3
+	github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625175316-cac44439e8b3
 	github.com/klauspost/compress v1.10.10 // indirect
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-micro/v2 v2.9.0

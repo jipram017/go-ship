@@ -32,11 +32,8 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, resp interface{}) error {
 		meta, ok := metadata.FromContext(ctx)
 		if !ok {
-			log.Println(ok)
 			return errors.New("no auth meta-data found in request")
 		}
-
-		log.Println(meta)
 
 		// Note this is now uppercase (not entirely sure why this is...)
 		token := meta["Token"]
@@ -59,7 +56,7 @@ func main() {
 
 	service := micro.NewService(
 		micro.WrapHandler(AuthWrapper),
-		micro.Name("shippy.service.consignment"),
+		micro.Name("go.micro.srv.consignment"),
 		micro.Version("latest"),
 	)
 
@@ -79,11 +76,9 @@ func main() {
 
 	consignmentCollection := client.Database("shippy").Collection("consignments")
 	repository := &MongoRepository{consignmentCollection}
-	vesselClient := vesselProto.NewVesselService("shippy.service.vessel", service.Client())
+	vesselClient := vesselProto.NewVesselService("go.micro.srv.vessel", service.Client())
 
 	h := &handler{repository, vesselClient}
-
-	log.Println("successfully connected to mongodb")
 
 	// Register our implementation with
 	if err := pb.RegisterShippingServiceHandler(service.Server(), h); err != nil {
