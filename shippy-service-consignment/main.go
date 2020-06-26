@@ -14,7 +14,7 @@ import (
 
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/v2"
-	cl "github.com/micro/go-micro/v2/client"
+	"github.com/micro/go-micro/v2/client"
 	servo "github.com/micro/go-micro/v2/server"
 )
 
@@ -30,20 +30,20 @@ const (
 // an error is returned.
 func AuthWrapper(fn servo.HandlerFunc) servo.HandlerFunc {
 	return func(ctx context.Context, req servo.Request, resp interface{}) error {
-		meta, ok := metadata.FromContext(ctx)
+		meta, ok := metadata.Get(ctx, "token")
 		if !ok {
 			return errors.New("no auth meta-data found in request")
 		}
 
 		log.Println(meta)
 		// Note this is now uppercase (not entirely sure why this is...)
-		token := meta["Token"]
-		log.Println("Authenticating with token: ", token)
+		//token := meta["Token"]
+		log.Println("Authenticating with token: ", meta)
 
 		// Auth here
-		authClient := userService.NewUserService("go.micro.srv.user", cl.DefaultClient)
+		authClient := userService.NewUserService("go.micro.srv.user", client.DefaultClient)
 		_, err := authClient.ValidateToken(context.Background(), &userService.Token{
-			Token: token,
+			Token: meta,
 		})
 		if err != nil {
 			return err
