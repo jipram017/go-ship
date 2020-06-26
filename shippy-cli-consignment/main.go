@@ -10,7 +10,7 @@ import (
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
 
 	"github.com/micro/go-micro/metadata"
-	microclient "github.com/micro/go-micro/v2/client"
+	"github.com/micro/go-micro/v2"
 )
 
 const (
@@ -29,7 +29,14 @@ func parseFile(file string) (*pb.Consignment, error) {
 }
 
 func main() {
-	// Contact the server and print out its response.
+	service := micro.NewService(
+		micro.Name("go.micro.srv.cli"),
+		micro.Version("latest"),
+	)
+
+	// Initialize service
+	service.Init()
+
 	file := defaultFilename
 	token := defaultToken
 
@@ -40,7 +47,7 @@ func main() {
 		"token": token,
 	})
 
-	client := pb.NewShippingService("go.micro.srv.consignment", microclient.DefaultClient)
+	client := pb.NewShippingService("go.micro.srv.consignment", service.Client())
 
 	// if len(os.Args) < 3 {
 	// 	log.Fatal(errors.New("Not enough arguments, expecing file and token."))
