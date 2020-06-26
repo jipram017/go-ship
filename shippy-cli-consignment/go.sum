@@ -374,6 +374,8 @@ github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626061204-5a
 github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626061204-5a1d6525d336/go.mod h1:PjuwdO68itz3UV+v0FjkcrGEw9dunSoFJtIfMP/66V8=
 github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626120923-64e7fe4261c1 h1:JGOMDG/4P+tZmFHAihD395eL7LpTc19UfjtGcvqDY7I=
 github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626120923-64e7fe4261c1/go.mod h1:PjuwdO68itz3UV+v0FjkcrGEw9dunSoFJtIfMP/66V8=
+github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626121519-16ee802523b2 h1:u3yZCkW4tjLsvbG4EuboRHpU90kUAvNOODt6Ne1srY0=
+github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626121519-16ee802523b2/go.mod h1:PjuwdO68itz3UV+v0FjkcrGEw9dunSoFJtIfMP/66V8=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625075110-bfd42e066dd3/go.mod h1:3jiMWaGQuGU42heUHfoLbVdbNK7q9Mu7Yy5h9zu93g0=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625112927-0bfb46d55245/go.mod h1:3jiMWaGQuGU42heUHfoLbVdbNK7q9Mu7Yy5h9zu93g0=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625175316-cac44439e8b3/go.mod h1:3jiMWaGQuGU42heUHfoLbVdbNK7q9Mu7Yy5h9zu93g0=

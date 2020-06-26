@@ -15,7 +15,7 @@ import (
 
 const (
 	defaultFilename = "consignment.json"
-	defaultToken    = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImVtYWlsIjoiamlwcmFtMDE3QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoidG9ob2t1MjAxMyJ9LCJleHAiOjE1MDAwLCJpc3MiOiJzaGlwcHkuc2VydmljZS51c2VyIn0.uINU2NZ_BBlPJeY0ExMvXgrOpbHtuJ3ubNJ3vIi"
+	defaultToken    = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImVtYWlsIjoiamlwcmFtMDE5QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoidG9ob2t1MjAxNCJ9LCJleHAiOjE1MDAwLCJpc3MiOiJzaGlwcHkuc2VydmljZS51c2VyIn0.3f2YEW8hAoqhwvKyVt6p7uINVSqwdDjvA5J-uY0krKo"
 )
 
 func parseFile(file string) (*pb.Consignment, error) {
@@ -35,6 +35,13 @@ func main() {
 	token := defaultToken
 	file := defaultFilename
 
+	// Create a new context which contains our given token.
+	// This same context will be passed into both the calls we make
+	// to our consignment-service.
+	ctx := metadata.NewContext(context.Background(), map[string]string{
+		"token": token,
+	})
+
 	service := micro.NewService(
 		micro.Name("go.micro.srv.cli"),
 		micro.Version("latest"),
@@ -51,13 +58,6 @@ func main() {
 
 	// file = os.Args[1]
 	// token = os.Args[2]
-
-	// Create a new context which contains our given token.
-	// This same context will be passed into both the calls we make
-	// to our consignment-service.
-	ctx := metadata.NewContext(context.Background(), map[string]string{
-		"token": token,
-	})
 
 	consignment, err := parseFile(file)
 	if err != nil {

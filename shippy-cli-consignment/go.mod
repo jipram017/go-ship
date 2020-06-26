@@ -7,7 +7,7 @@ go 1.13
 require (
 	github.com/go-delve/delve v1.4.1
 	github.com/go-log/log v0.2.0 // indirect
-	github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626120923-64e7fe4261c1
+	github.com/jipram017/go-ship/shippy-service-consignment v0.0.0-20200626121519-16ee802523b2
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/lucas-clemente/quic-go v0.17.1 // indirect
 	github.com/micro/go-micro v1.18.0
