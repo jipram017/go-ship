@@ -10,32 +10,29 @@ import (
 )
 
 func main() {
-	srv := micro.NewService(
-		micro.Name("shippy.service.cli"),
+	service := micro.NewService(
+		micro.Name("shippy.cli.user"),
 		micro.Version("latest"),
 	)
 
-	// Init will parse the command line flags.
-	srv.Init()
+	client := pb.NewUserService("go.micro.srv.user", service.Client())
+	name := "Aji Pramono3"
+	email := "jipram020@gmail.com"
+	password := "tohoku2015"
+	company := "INGENICO"
 
-	client := pb.NewUserService("shippy.service.user", srv.Client())
-	//name := "Aji Pramono"
-	email := "jipram017@gmail.com"
-	password := "tohoku2013"
-	//company := "NIAGA"
+	r, err := client.Create(context.TODO(), &pb.User{
+		Name:     name,
+		Email:    email,
+		Password: password,
+		Company:  company,
+	})
 
-	// r, err := client.Create(context.TODO(), &pb.User{
-	// 	Name:     name,
-	// 	Email:    email,
-	// 	Password: password,
-	// 	Company:  company,
-	// })
+	if err != nil {
+		log.Fatalf("Could not create: %v", err)
+	}
 
-	// if err != nil {
-	// 	log.Fatalf("Could not create: %v", err)
-	// }
-
-	// log.Printf("Created: %s", r.User.Id)
+	log.Printf("Created: %s", r.User.Id)
 
 	getAll, err := client.GetAll(context.Background(), &pb.Request{})
 	if err != nil {
