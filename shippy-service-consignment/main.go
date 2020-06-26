@@ -28,38 +28,36 @@ const (
 // token is then sent over to the user service to be validated.
 // If valid, the call is passed along to the handler. If not,
 // an error is returned.
-func AuthWrapper(fn servo.HandlerFunc) servo.HandlerFunc {
-	return func(ctx context.Context, req servo.Request, resp interface{}) error {
-		meta, ok := metadata.FromIncomingContext(ctx)
-		if !ok {
-			log.Println(ok)
-			return errors.New("no auth meta-data found in request")
-		}
-
-		log.Println(meta)
-		// Note this is now uppercase (not entirely sure why this is...)
-		token := meta.Get("Token")[0]
-		log.Println("Authenticating with token: ", token)
-
-		// Auth here
-		authClient := userService.NewUserService("go.micro.srv.user", cl.DefaultClient)
-		_, err := authClient.ValidateToken(context.Background(), &userService.Token{
-			Token: token,
-		})
-		if err != nil {
-			return err
-		}
-		err = fn(ctx, req, resp)
-		return err
-	}
-}
 
 func main() {
 
 	service := micro.NewService(
 		micro.Name("go.micro.srv.consignment"),
 		micro.Version("latest"),
-		micro.WrapHandler(AuthWrapper),
+		micro.WrapHandler(func(handlerFunc servo.HandlerFunc) servo.HandlerFunc {
+			return func(ctx context.Context, req servo.Request, resp interface{}) error {
+				meta, ok := metadata.FromIncomingContext(ctx)
+				if !ok {
+					log.Println(ok)
+					return errors.New("no auth meta-data found in request")
+				}
+
+				log.Println(meta)
+				// Note this is now uppercase (not entirely sure why this is...)
+				token := meta.Get("token")[0]
+				log.Println("Authenticating with token: ", token)
+
+				// Auth here
+				authClient := userService.NewUserService("go.micro.srv.user", cl.DefaultClient)
+				_, err := authClient.ValidateToken(context.Background(), &userService.Token{
+					Token: token,
+				})
+				if err != nil {
+					return err
+				}
+				return nil
+			}
+		}),
 	)
 
 	// Initialize service
