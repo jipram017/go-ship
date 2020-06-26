@@ -16,4 +16,5 @@ require (
 	github.com/pkg/errors v0.9.1
 	go.mongodb.org/mongo-driver v1.3.4
 	golang.org/x/net v0.0.0-20200625001655-4c5254603344
+	google.golang.org/grpc v1.30.0
 )

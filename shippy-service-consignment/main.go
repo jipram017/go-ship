@@ -12,10 +12,10 @@ import (
 	vesselProto "github.com/jipram017/go-ship/shippy-service-vessel/proto/vessel"
 	"github.com/pkg/errors"
 
-	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/v2"
 	cl "github.com/micro/go-micro/v2/client"
 	servo "github.com/micro/go-micro/v2/server"
+	"google.golang.org/grpc/metadata"
 )
 
 const (
@@ -30,13 +30,15 @@ const (
 // an error is returned.
 func AuthWrapper(fn servo.HandlerFunc) servo.HandlerFunc {
 	return func(ctx context.Context, req servo.Request, resp interface{}) error {
-		meta, ok := metadata.FromContext(ctx)
+		meta, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
+			log.Println(ok)
 			return errors.New("no auth meta-data found in request")
 		}
 
+		log.Println(meta)
 		// Note this is now uppercase (not entirely sure why this is...)
-		token := meta["Token"]
+		token := meta.Get("Token")[0]
 		log.Println("Authenticating with token: ", token)
 
 		// Auth here
