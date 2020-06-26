@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 )
@@ -21,7 +23,7 @@ type TokenService struct {
 // Decode a token string into a token object
 func (srv *TokenService) Decode(token string) (*CustomClaims, error) {
 	// Parse the token
-	tokenType, err := jwt.ParseWithClaims(string(key), &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+	tokenType, err := jwt.ParseWithClaims(token, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return key, nil
 	})
 
@@ -38,7 +40,7 @@ func (srv *TokenService) Encode(user *pb.User) (string, error) {
 	claims := CustomClaims{
 		user,
 		jwt.StandardClaims{
-			ExpiresAt: 15000,
+			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
 			Issuer:    "shippy.service.user",
 		},
 	}

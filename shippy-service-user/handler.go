@@ -82,8 +82,13 @@ func (s *handler) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Toke
 		return err
 	}
 
-	if claims.User.Id == "" {
+	if claims.User.Email == "" {
 		return errors.New("Invalid User")
+	}
+
+	user, err := s.repository.GetByEmail(ctx, claims.User.Email)
+	if err != nil || user.ID == "" {
+		return errors.New("User not found")
 	}
 
 	res.Valid = true
