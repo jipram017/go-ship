@@ -2,23 +2,26 @@ package main
 
 import (
 	"context"
-	"errors"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
+	"github.com/micro/go-micro/v2"
 	"golang.org/x/crypto/bcrypt"
 )
+
+const topic = "user.created"
 
 type authable interface {
 	Decode(token string) (*CustomClaims, error)
 	Encode(user *pb.User) (string, error)
 }
 
-type handler struct {
+type service struct {
 	repository   Repository
 	tokenService authable
+	Publisher    micro.Publisher
 }
 
-func (s *handler) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
+func (s *service) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
 	result, err := s.repository.Get(ctx, req.Id)
 	if err != nil {
 		return err
@@ -29,7 +32,7 @@ func (s *handler) Get(ctx context.Context, req *pb.User, res *pb.Response) error
 	return nil
 }
 
-func (s *handler) GetAll(ctx context.Context, req *pb.Request, res *pb.Response) error {
+func (s *service) GetAll(ctx context.Context, req *pb.Request, res *pb.Response) error {
 	results, err := s.repository.GetAll(ctx)
 	if err != nil {
 		return err
@@ -40,7 +43,7 @@ func (s *handler) GetAll(ctx context.Context, req *pb.Request, res *pb.Response)
 	return nil
 }
 
-func (s *handler) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
+func (s *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	user, err := s.repository.GetByEmail(ctx, req.Email)
 	if err != nil {
 		return err
@@ -59,7 +62,7 @@ func (s *handler) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	return nil
 }
 
-func (s *handler) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
+func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
@@ -73,24 +76,10 @@ func (s *handler) Create(ctx context.Context, req *pb.User, res *pb.Response) er
 	// Strip the password back out, so's we're not returning it
 	req.Password = ""
 	res.User = req
-	return nil
-}
 
-func (s *handler) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Token) error {
-	claims, err := s.tokenService.Decode(req.Token)
-	if err != nil {
+	if err := s.Publisher.Publish(ctx, req); err != nil {
 		return err
 	}
 
-	if claims.User.Email == "" {
-		return errors.New("Invalid User")
-	}
-
-	user, err := s.repository.GetByEmail(ctx, claims.User.Email)
-	if err != nil || user.ID == "" {
-		return errors.New("User not found")
-	}
-
-	res.Valid = true
 	return nil
 }

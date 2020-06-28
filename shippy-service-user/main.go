@@ -45,8 +45,11 @@ func main() {
 	// Init will parse the command line flags.
 	service.Init()
 
+	// Get instance of the broker using our default
+	publisher := micro.NewPublisher("user.created", service.Client())
+
 	// Register handler
-	if err := pb.RegisterUserServiceHandler(service.Server(), &handler{repo, tokenService}); err != nil {
+	if err := pb.RegisterUserServiceHandler(service.Server(), &handler{repo, tokenService, publisher}); err != nil {
 		log.Panic(err)
 	}
 
