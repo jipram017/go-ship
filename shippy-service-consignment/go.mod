@@ -5,7 +5,7 @@ replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
 go 1.13
 
 require (
-	github.com/francoispqt/gojay v1.2.13
+	github.com/francoispqt/gojay v1.2.13 // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200625183214-ee0485bcb348
 	github.com/jipram017/go-ship/shippy-service-vessel v0.0.0-20200625181915-954b432d8aef
@@ -16,5 +16,4 @@ require (
 	github.com/pkg/errors v0.9.1
 	go.mongodb.org/mongo-driver v1.3.4
 	golang.org/x/net v0.0.0-20200625001655-4c5254603344
-	google.golang.org/grpc v1.30.0
 )
