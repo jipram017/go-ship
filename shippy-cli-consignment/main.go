@@ -30,17 +30,10 @@ func parseFile(file string) (*pb.Consignment, error) {
 
 func main() {
 
-	//cmd.Init()
+	// cmd.Init()
 
 	token := defaultToken
 	file := defaultFilename
-
-	// Create a new context which contains our given token.
-	// This same context will be passed into both the calls we make
-	// to our consignment-service.
-	ctx := metadata.NewContext(context.Background(), map[string]string{
-		"token": token,
-	})
 
 	service := micro.NewService(
 		micro.Name("go.micro.srv.cli"),
@@ -53,11 +46,20 @@ func main() {
 	client := pb.NewShippingService("go.micro.srv.consignment", service.Client())
 
 	// if len(os.Args) < 3 {
-	// 	log.Fatal(errors.New("Not enough arguments, expecing file and token."))
+	// 	log.Fatal(errors.New(
+	// 		"Not enough arguments, expecing file and token",
+	// 	))
 	// }
 
 	// file = os.Args[1]
 	// token = os.Args[2]
+
+	// Create a new context which contains our given token.
+	// This same context will be passed into both the calls we make
+	// to our consignment-service.
+	ctx := metadata.NewContext(context.Background(), map[string]string{
+		"token": token,
+	})
 
 	consignment, err := parseFile(file)
 	if err != nil {
