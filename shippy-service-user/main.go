@@ -37,24 +37,24 @@ func main() {
 	tokenService := &TokenService{repo}
 
 	// Create a new service. Optionally include some options here.
-	service := micro.NewService(
+	srv := micro.NewService(
 		micro.Name("go.micro.srv.user"),
 		micro.Version("latest"),
 	)
 
 	// Init will parse the command line flags.
-	service.Init()
+	srv.Init()
 
 	// Get instance of the broker using our default
-	publisher := micro.NewPublisher("user.created", service.Client())
+	publisher := micro.NewPublisher("user.created", srv.Client())
 
 	// Register handler
-	if err := pb.RegisterUserServiceHandler(service.Server(), &handler{repo, tokenService, publisher}); err != nil {
+	if err := pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, publisher}); err != nil {
 		log.Panic(err)
 	}
 
 	// Run the server
-	if err := service.Run(); err != nil {
+	if err := srv.Run(); err != nil {
 		log.Panic(err)
 	}
 }

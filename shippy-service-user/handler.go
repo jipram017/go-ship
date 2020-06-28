@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 	"github.com/micro/go-micro/v2"
@@ -80,6 +81,24 @@ func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) er
 	if err := s.Publisher.Publish(ctx, req); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func (s *service) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Token) error {
+
+	// Decode token
+	claims, err := s.tokenService.Decode(req.Token)
+
+	if err != nil {
+		return err
+	}
+
+	if claims.User.Id == "" {
+		return errors.New("invalid user")
+	}
+
+	res.Valid = true
 
 	return nil
 }
