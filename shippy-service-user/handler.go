@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 	"github.com/micro/go-micro/v2"
@@ -69,8 +70,10 @@ func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) er
 		return err
 	}
 
+	log.Println(req)
 	req.Password = string(hashedPass)
 	if err := s.repository.Create(ctx, MarshalUser(req)); err != nil {
+		log.Println("test")
 		return err
 	}
 
