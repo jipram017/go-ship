@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"errors"
-	"log"
+	"sync"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 	"github.com/micro/go-micro/v2"
@@ -21,6 +21,7 @@ type service struct {
 	repository   Repository
 	tokenService authable
 	Publisher    micro.Publisher
+	mux          sync.Mutex
 }
 
 func (s *service) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
@@ -65,20 +66,20 @@ func (s *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 }
 
 func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
+
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
 
-	log.Println(req)
 	req.Password = string(hashedPass)
+
 	if err := s.repository.Create(ctx, MarshalUser(req)); err != nil {
-		log.Println("test")
 		return err
 	}
 
 	// Strip the password back out, so's we're not returning it
-	req.Password = ""
+	// req.Password = ""
 	res.User = req
 
 	if err := s.Publisher.Publish(ctx, req); err != nil {
@@ -97,7 +98,7 @@ func (s *service) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Toke
 		return err
 	}
 
-	if claims.User.Id == "" {
+	if claims.User.Email == "" {
 		return errors.New("invalid user")
 	}
 

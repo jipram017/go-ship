@@ -103,7 +103,10 @@ func (r *PostgresRepository) Create(ctx context.Context, user *User) error {
 	user.ID = uuid.NewV4().String()
 	query := "insert into users (id, name, email, company, password) values ($1, $2, $3, $4, $5)"
 	_, err := r.db.ExecContext(ctx, query, user.ID, user.Name, user.Email, user.Company, user.Password)
-	return err
+	if err != nil {
+		r.db.MustBegin().Rollback()
+	}
+	return nil
 }
 
 func (r *PostgresRepository) GetByEmail(ctx context.Context, email string) (*User, error) {

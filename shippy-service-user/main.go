@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"sync"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
 	"github.com/micro/go-micro/v2"
@@ -49,7 +50,7 @@ func main() {
 	publisher := micro.NewPublisher("user.created", srv.Client())
 
 	// Register handler
-	if err := pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, publisher}); err != nil {
+	if err := pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, publisher, sync.Mutex{}}); err != nil {
 		log.Panic(err)
 	}
 
