@@ -300,6 +300,8 @@ github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200623190215-185fca545
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200623190215-185fca545e38/go.mod h1:4fFSXp64BkFzPjMRSLL2gvoGGu6B6s8bq1RlPgV5Jxo=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200626124338-536311384564 h1:/ePtiP+rx9XI8nkHLRb3V8rY1SjDB2sQ2V2kV9taYRI=
 github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200626124338-536311384564/go.mod h1:fII6CSCGSUIkCJusj5KnQj/Selwvq36cAKtfoYCQWfI=
+github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200628184732-df11d1146c31 h1:GaHhtk8K/4+Yu9MDyr57y0FZZaW6WEBxJhmRL5SNO+g=
+github.com/jipram017/go-ship/shippy-service-user v0.0.0-20200628184732-df11d1146c31/go.mod h1:fII6CSCGSUIkCJusj5KnQj/Selwvq36cAKtfoYCQWfI=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/jmoiron/sqlx v1.2.0/go.mod h1:1FEQNm3xlJgrMD+FBdI9+xvCksHtbpVBBw5dYhBSsks=
 github.com/jonboulle/clockwork v0.1.0 h1:VKV+ZcuP6l3yW9doeqz6ziZGgcynBVQO+obU0+0hcPo=
@@ -840,6 +842,8 @@ google.golang.org/genproto v0.0.0-20200623002339-fbb79eadd5eb h1:PUcq6RTy8Gp9xuk
 google.golang.org/genproto v0.0.0-20200623002339-fbb79eadd5eb/go.mod h1:FWY/as6DDZQgahTzZj3fqbO1CbirC29ZNUFHwi0/+no=
 google.golang.org/genproto v0.0.0-20200624020401-64a14ca9d1ad h1:uAwc13+y0Y8QZLTYhLCu6lHhnG99ecQU5FYTj8zxAng=
 google.golang.org/genproto v0.0.0-20200624020401-64a14ca9d1ad/go.mod h1:FWY/as6DDZQgahTzZj3fqbO1CbirC29ZNUFHwi0/+no=
+google.golang.org/genproto v0.0.0-20200626011028-ee7919e894b5 h1:a/Sqq5B3dGnmxhuJZIHFsIxhEkqElErr5TaU6IqBAj0=
+google.golang.org/genproto v0.0.0-20200626011028-ee7919e894b5/go.mod h1:FWY/as6DDZQgahTzZj3fqbO1CbirC29ZNUFHwi0/+no=
 google.golang.org/grpc v1.14.0/go.mod h1:yo6s7OP7yaDglbqo1J04qKzAhqBH6lvTonzMVmEdcZw=
 google.golang.org/grpc v1.16.0/go.mod h1:0JHn/cJsOMiMfNA9+DeHDlAU7KAAB5GDlYFpa9MZMio=
 google.golang.org/grpc v1.17.0/go.mod h1:6QZJwpn2B+Zp71q/5VxRsJ6NXXVCE5NRUHRo+f3cWCs=

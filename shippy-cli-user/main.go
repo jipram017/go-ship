@@ -17,13 +17,13 @@ func main() {
 
 	service.Init()
 
-	client := pb.NewUserService("go.micro.srv.user", service.Client())
+	cl := pb.NewUserService("go.micro.srv.user", service.Client())
 	name := "Henry F"
 	email := "ppprmn2@gmail.com"
 	password := "apjp21"
 	company := "TestCompany"
 
-	r, err := client.Create(context.TODO(), &pb.User{
+	r, err := cl.Create(context.TODO(), &pb.User{
 		Name:     name,
 		Email:    email,
 		Password: password,
@@ -36,7 +36,7 @@ func main() {
 
 	log.Printf("Created: %s", r.User.Id)
 
-	getAll, err := client.GetAll(context.Background(), &pb.Request{})
+	getAll, err := cl.GetAll(context.Background(), &pb.Request{})
 	if err != nil {
 		log.Fatalf("Could not list users: %v", err)
 	}
@@ -45,7 +45,7 @@ func main() {
 		log.Println(v)
 	}
 
-	authResponse, err := client.Auth(context.TODO(), &pb.User{
+	authResponse, err := cl.Auth(context.TODO(), &pb.User{
 		Email:    email,
 		Password: password,
 	})
