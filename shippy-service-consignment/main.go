@@ -29,13 +29,13 @@ const (
 // an error is returned.
 func AuthWrapper(fn servo.HandlerFunc) servo.HandlerFunc {
 	return func(ctx context.Context, req servo.Request, resp interface{}) error {
-		var token string
 		meta, ok := metadata.FromContext(ctx)
+		var token string
 		if !ok {
 			// return errors.New("no auth meta-data found in request")
 
 			// Instead of return error, we temporarily hardcode it if context is not propagated
-			token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImVtYWlsIjoiamlwcmFtMDIwQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoidG9ob2t1MjAxNSJ9LCJleHAiOjE1OTM0NTIxODYsImlzcyI6InNoaXBweS5zZXJ2aWNlLnVzZXIifQ.Iv8Zzg1ILXHXOQpDMGR42Mdk_3A6VdX_mrgoI-tD9Gw"
+			token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImVtYWlsIjoicHBwcm1uMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6ImFwanAyMSJ9LCJleHAiOjE1OTM3MDM2NjgsImlzcyI6InNoaXBweS5zZXJ2aWNlLnVzZXIifQ.iYO7KTb-Pz5ZxynM79XHDEQwCykxZTqP-XYAjhjzfZ4"
 		} else {
 			// Note this is now uppercase (not entirely sure why this is...)
 			token = meta["Token"]

@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-consignment/proto/consignment"
 	"go.mongodb.org/mongo-driver/bson"
@@ -118,7 +117,6 @@ func (repository *MongoRepository) GetAll(ctx context.Context) ([]*Consignment, 
 func (repository *MongoRepository) Create(ctx context.Context, consignment *Consignment) error {
 	_, err := repository.collection.InsertOne(ctx, consignment)
 	if err != nil {
-		log.Println("masuk3")
 		return err
 	}
 	return nil
