@@ -5,7 +5,7 @@ import (
 	"log"
 
 	pb "github.com/jipram017/go-ship/shippy-service-user/proto/user"
-	micro "github.com/micro/go-micro"
+	micro "github.com/micro/go-micro/v2"
 )
 
 const topic = "user.created"
